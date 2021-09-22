@@ -1,1 +1,1 @@
-import app.controllers.face_recognition as face_recognition
+import app.controllers.face_detecter as face_detecter
