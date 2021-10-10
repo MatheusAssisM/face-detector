@@ -83,10 +83,14 @@ def _crop_faces(image, face_detector):
     return croped_faces
 
 def _bytes_to_base64(images):
-    images_base64 = []
+    images_base64 = {
+        "faces_images": [],
+        "faces_count": len(images)
+    }
     if not images:
         return HTTPException(status_code=404, detail='No faces found')
 
     for image in images:
-        images_base64.append(base64.b64encode(image))
+        images_base64['faces_images'].append(base64.b64encode(image))
+    
     return images_base64
