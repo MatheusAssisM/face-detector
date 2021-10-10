@@ -1,24 +1,29 @@
-from fastapi import APIRouter, UploadFile, File, Response
-import io
 import app.controllers as controllers
+from fastapi import APIRouter, UploadFile, File, Response, HTTPException
 
 
 router = APIRouter(
-    prefix="/face_predictor",
+    prefix="/face-predictor",
     responses={404: {"description": "Not found"}}
 )
 
-
-'''
-    Router for face recognition
-'''
+# Router for face recognition
 @router.post(
     "/",
-    responses={200: {"content": {"image/png": {}}}},
-    response_class=Response
+    responses={
+        200: {"content": {"image/png": {}}},
+        400: {"description": "Bad request"}
+    },
+    summary="Predict face"
 )
 async def face_recognition(image: UploadFile = File(...)):
     if not image:
-        return {"error": "No image file provided"}
-    result = controllers.face_detecter.get_faces(await image.read())
-    return Response(content=result, media_type="image/png")
+        raise HTTPException(status_code=400, detail="No image provided")
+
+    image_bytes = await image.read()
+    faces = controllers.face_detecter.get_faces(image_bytes)
+    return {"faces": faces}
+    # return Response(content=faces[0], media_type="image/png")
+
+
+
