@@ -62,7 +62,7 @@ def _build_rectangle_on_image(image, face_detector):
 def _get_buffered_images(images):
     images_buffered = []
     if not images:
-        return HTTPException(status_code=404, detail='No faces found')
+        raise HTTPException(status_code=404, detail='No faces found')
 
     for image in images:
         _, image_buffer = cv2.imencode('.jpg', image)
@@ -88,7 +88,7 @@ def _bytes_to_base64(images):
         "faces_count": len(images)
     }
     if not images:
-        return HTTPException(status_code=404, detail='No faces found')
+        raise HTTPException(status_code=404, detail='No faces found')
 
     for image in images:
         images_base64['faces_images'].append(base64.b64encode(image))

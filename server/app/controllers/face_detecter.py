@@ -8,5 +8,5 @@ def get_faces(image):
     try:
         result = face_detecter.get_faces(image)
     except Exception as e:
-        raise HTTPException(status_code=500, detail='Sorry, something wrong!')
+        print(e)
     return result

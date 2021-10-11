@@ -20,6 +20,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/faceAPI.js',
+    '~/plugins/eventBus.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -45,9 +47,11 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'pt-br'
     }
   },
+
+  loading: false,
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
