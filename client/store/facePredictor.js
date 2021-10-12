@@ -1,6 +1,11 @@
+import CustomError from "../utils/customError";
+
 export const actions = {
-  async findFaces({_}, file) {
+  async findFaces({ dispatch }, file) {
     try {
+      if (!file) {
+        throw new CustomError('Selecione um arquivo!');
+      }
       const formData = new FormData();
       formData.append('image', file);
       const result = await this.$faceAPI.post(
@@ -12,9 +17,19 @@ export const actions = {
           }
         }
       )
-      return result.data || []
+      return dispatch('validateResult', result)
     } catch (error) {
-      return null
+      if ( error instanceof Error) {
+        throw new CustomError('Algo deu errado!');
+      }
+      throw error
     }
+  },
+
+  validateResult ({_}, result) {
+    if (!result?.data?.result || !result?.data) {
+      throw new CustomError('Nenhum rosto encontrado!')
+    }
+    return result?.data || []
   }
 }

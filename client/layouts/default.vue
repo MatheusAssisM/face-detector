@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <NavBar />
+    <!-- <NavBar /> -->
     <Nuxt />
   </b-container>
 </template>

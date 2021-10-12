@@ -5,8 +5,16 @@ import io
 import base64
 import dlib
 
-# Get faces from image
 def get_faces(image):
+    '''
+        Get the faces from the image
+
+        args:
+            image(bytes): image in bytes
+
+        Return:
+            image_base64(dict): dict with the base64 encoded images and the number of faces
+    '''
     face_detector = _build_face_detector()
     image_resized = _get_resized_gray_image(image)
     # marked_image = _build_rectangle_on_image(image_resized, face_detector)
@@ -15,16 +23,34 @@ def get_faces(image):
     images_base64 = _bytes_to_base64(images_buffered)
     return images_base64
 
-# Resize image and convert to grayscale
 def _get_resized_gray_image(image_data):
+    '''
+        Resize the image to a proportion of the original image
+        and convert to grayscale
+
+        args:
+            image_data(bytes): image in bytes
+        
+        Return:
+            image_rgb(cv2): image (array) in grayscale
+    '''
     image = mpimg.imread(io.BytesIO(image_data), format='jpeg')
     image_resized = _resize_image(image)
     image_rgb = cv2.cvtColor(image_resized.copy(), cv2.COLOR_BGR2GRAY)
     return image_rgb
 
 
-# Resize the image to a proportion of the original image
 def _resize_image(image, scale_percent=30):
+    '''
+        Resize the image to a proportion of the original image
+
+        args:
+            image(cv2): image (array)
+            scale_percent(int): scale percentage
+        
+        Return:
+            image_resized(cv2): image (array) resized
+    '''
     width = int(image.shape[1] * scale_percent / 100)
     height = int(image.shape[0] * scale_percent / 100)
     dim = (width, height)
@@ -78,7 +104,6 @@ def _crop_faces(image, face_detector):
 
     for _, d in enumerate(faces):
         face = image[d.top():d.bottom(), d.left():d.right()]
-        # resized_face = _resize_image(face)
         croped_faces.append(face)
     return croped_faces
 

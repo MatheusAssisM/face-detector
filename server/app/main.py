@@ -7,12 +7,13 @@ app = FastAPI()
 
 allowed_origins = [
     "http://localhost:3000",
+    "https://2c8b-2804-dd4-807a-6000-f960-a76d-9712-304e.ngrok.io"
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"]
 )
