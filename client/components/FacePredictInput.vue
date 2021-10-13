@@ -73,7 +73,6 @@ export default {
                     body: `Rostos encotrados: ${faces.result.faces_count}`}
                 )
             } catch (error) {
-                console.log(error)
                 this.showAlert('danger', 
                     {
                         body: error.message,

@@ -12,4 +12,6 @@ def get_faces(image):
         if type(e) is not HTTPException:
             print(e)
             raise HTTPException(status_code=500, detail='Something wrong!')
+        else:
+            raise e
 

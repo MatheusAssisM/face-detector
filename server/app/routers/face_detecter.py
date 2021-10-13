@@ -23,7 +23,3 @@ async def face_recognition(image: UploadFile = File(...)):
     image_bytes = await image.read()
     faces = controllers.face_detecter.get_faces(image_bytes)
     return {"result": faces}
-    # return Response(content=faces[0], media_type="image/png")
-
-
-

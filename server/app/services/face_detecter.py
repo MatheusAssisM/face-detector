@@ -5,6 +5,7 @@ import io
 import base64
 import dlib
 
+
 def get_faces(image):
     '''
         Get the faces from the image
@@ -15,15 +16,17 @@ def get_faces(image):
         Return:
             image_base64(dict): dict with the base64 encoded images and the number of faces
     '''
-    face_detector = _build_face_detector()
-    image_resized = _get_resized_gray_image(image)
+    check_image_size(image)
+    check_format_image(image)
+    face_detector = build_face_detector()
+    image_resized = get_gray_image(image)
     # marked_image = _build_rectangle_on_image(image_resized, face_detector)
-    faces = _crop_faces(image_resized, face_detector)
-    images_buffered = _get_buffered_images(faces)
-    images_base64 = _bytes_to_base64(images_buffered)
+    faces = crop_faces(image_resized, face_detector)
+    images_buffered = get_buffered_images(faces)
+    images_base64 = bytes_to_base64(images_buffered)
     return images_base64
 
-def _get_resized_gray_image(image_data):
+def get_gray_image(image_data):
     '''
         Resize the image to a proportion of the original image
         and convert to grayscale
@@ -32,15 +35,14 @@ def _get_resized_gray_image(image_data):
             image_data(bytes): image in bytes
         
         Return:
-            image_rgb(cv2): image (array) in grayscale
+            image_rgb(cv2): image array in grayscale
     '''
     image = mpimg.imread(io.BytesIO(image_data), format='jpeg')
-    image_resized = _resize_image(image)
-    image_rgb = cv2.cvtColor(image_resized.copy(), cv2.COLOR_BGR2GRAY)
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return image_rgb
 
 
-def _resize_image(image, scale_percent=30):
+def resize_image(image, scale_percent=30):
     '''
         Resize the image to a proportion of the original image
 
@@ -61,15 +63,25 @@ def _resize_image(image, scale_percent=30):
     )
     return image_resized
 
-# Build the face detector for frontal faces
-def _build_face_detector():
+def build_face_detector():
+    '''
+        Build the face detector for frontal faces
+
+        Return:
+            face_detector(dlib): Face detector from DLIB
+    '''
     _classifier_68_path = './app/utils/classifiers/shape_predictor_68_face_landmarks.dat'
     dlib.shape_predictor(_classifier_68_path)
     face_detector = dlib.get_frontal_face_detector()
     return face_detector
 
-# Build the rectangle around the faces
-def _build_rectangle_on_image(image, face_detector):
+def build_rectangle_on_image(image, face_detector):
+    '''
+        Mark the rectangle around the faces
+
+        Return: 
+            image(cv2): Array image with marked faces
+    '''
     faces = face_detector(image, 1)
     if not faces:
         raise HTTPException(status_code=404, detail='No faces found')
@@ -84,8 +96,10 @@ def _build_rectangle_on_image(image, face_detector):
         )
     return image
 
-# Get buffered jpg image 
-def _get_buffered_images(images):
+def get_buffered_images(images):
+    '''
+        Get all buffered images
+    '''
     images_buffered = []
     if not images:
         raise HTTPException(status_code=404, detail='No faces found')
@@ -95,8 +109,13 @@ def _get_buffered_images(images):
         images_buffered.append(image_buffer.tobytes())
     return images_buffered
 
-# Crop faces from image and return the cropped image
-def _crop_faces(image, face_detector):
+def crop_faces(image, face_detector):
+    '''
+        Crop the faces from image
+
+        Return:
+            croped_faces(list): a list with all faces
+    '''
     faces = face_detector(image, 1)
     croped_faces = []
     if not faces:
@@ -107,7 +126,13 @@ def _crop_faces(image, face_detector):
         croped_faces.append(face)
     return croped_faces
 
-def _bytes_to_base64(images):
+def bytes_to_base64(images):
+    '''
+        Convert a image to base64 and count the total faces
+
+        Return:
+            images_base64(dict): Dict with all faces and the total faces
+    '''
     images_base64 = {
         "faces_images": [],
         "faces_count": len(images)
@@ -119,3 +144,26 @@ def _bytes_to_base64(images):
         images_base64['faces_images'].append(base64.b64encode(image))
     
     return images_base64
+
+def check_image_size(image):
+    '''
+        Check if the image is bigger than 6MB
+    '''
+    image_size = len(image) / 1000
+    if image_size > 6000:
+        raise HTTPException(
+            status_code=404, 
+            detail=f'Image is bigger than 6MB: {image_size / 1000}'
+        )
+    return
+
+def check_format_image(image):
+    '''
+        Check if the image is in jpeg format
+    '''
+    if not image.startswith(b'\xff\xd8'):
+        raise HTTPException(
+            status_code=404, 
+            detail='Image is not in jpeg format'
+        )
+    return
