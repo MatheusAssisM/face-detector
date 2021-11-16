@@ -1,0 +1,26 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "yarn dev",
+            "name": "Run yarn dev",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/client"
+        },
+        {
+            "name": "Python: FastAPI",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "cwd": "${workspaceFolder}/server",
+            "args": [
+                "app.main:app",
+            ],
+            "jinja": true
+        }
+    ]
+}

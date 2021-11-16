@@ -1,1 +1,1 @@
-import app.routers.face_detecter as face_detecter
+import app.routers.face_detector as face_detector

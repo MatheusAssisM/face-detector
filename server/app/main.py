@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 #routes
-app.include_router(routers.face_detecter.router)
+app.include_router(routers.face_detector.router)
 
 
 @app.get("/")

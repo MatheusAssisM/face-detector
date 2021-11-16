@@ -1,1 +1,1 @@
-import app.services.face_detecter as face_detecter
+import app.services.face_detector as face_detector
