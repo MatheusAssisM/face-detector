@@ -16,6 +16,10 @@ The project is still under development and as updates will be focused on the fol
 - [ ] Accept more images format
 - [ ] Guess the age of faces
 
+## Diagram
+
+<img src="https://user-images.githubusercontent.com/65235458/142055309-9182caa3-8b55-4054-bd91-18540aad578e.png" alt="diagram" width="500">
+
 ## 💻 Requirements
 
 Before starting, make sure you meet the following requirements:
