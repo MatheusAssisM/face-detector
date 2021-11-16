@@ -14,6 +14,7 @@ The project is still under development and as updates will be focused on the fol
 
 - [ ] Can download the faces pictures
 - [ ] Accept more images format
+- [ ] Guess the age of faces
 
 ## 💻 Requirements
 
