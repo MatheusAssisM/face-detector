@@ -8,17 +8,17 @@
 
 > Project in OPENCV for capture faces in a image (JEPG)
 
-## Improves and adjustments
+<!-- ## Improves and adjustments
 
 The project is still under development and as updates will be focused on the following tasks:
 
 - [ ] Can download the faces pictures
 - [ ] Accept more images format
-- [ ] Guess the age of faces
+- [ ] Guess the age of faces -->
 
-## Diagram
+## General archtecture
 
-<img src="https://user-images.githubusercontent.com/65235458/142055309-9182caa3-8b55-4054-bd91-18540aad578e.png" alt="diagram" width="500">
+<img src="https://user-images.githubusercontent.com/65235458/142350172-6d037e14-633b-4251-a4a9-d4160e1dec02.png" alt="diagram" width="700">
 
 ## 💻 Requirements
 
