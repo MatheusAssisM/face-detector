@@ -18,6 +18,8 @@ The project is still under development and as updates will be focused on the fol
 
 ## General archtecture
 
+> [All archtecture docs](https://drive.google.com/file/d/1JvW6XA4GrQAIhe1V5un09RYPUQAQW64C/view?usp=sharing)
+
 <img src="https://user-images.githubusercontent.com/65235458/142350172-6d037e14-633b-4251-a4a9-d4160e1dec02.png" alt="diagram" width="700">
 
 ## 💻 Requirements
