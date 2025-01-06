@@ -3,7 +3,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/matheusassism/FaceDetectorDlib?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/matheusassism/FaceDetectorDlib?style=for-the-badge)
 
-![image](https://user-images.githubusercontent.com/65235458/142041132-dd84157f-ad0e-43e1-bd8b-5699b7c6fead.png)
 
 
 > Project in OPENCV for capture faces in a image (JEPG)
